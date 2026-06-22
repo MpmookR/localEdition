@@ -1,3 +1,9 @@
+/**
+ * Site home page — what a customer sees first after scanning the bar's QR
+ * code. Still the default create-next-app starter content; this is where
+ * the digital menu (sections, items, language switch) needs to be built.
+ * See ../doc.md for the menu content model and architecture.
+ */
 import Image from "next/image";
 
 export default function Home() {

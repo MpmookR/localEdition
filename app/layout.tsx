@@ -1,3 +1,10 @@
+/**
+ * Root layout — wraps every page in the app (including the menu page customers
+ * land on after scanning the QR code). Currently default create-next-app
+ * boilerplate: `lang="en"` is hardcoded and metadata is generic. Both need to
+ * change once i18n (Thai/English) and Local Edition branding are added.
+ * See ../doc.md for the full project overview.
+ */
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
