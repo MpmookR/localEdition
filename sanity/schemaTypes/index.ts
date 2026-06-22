@@ -1,11 +1,9 @@
-/**
- * THE content model registry — currently empty. Every document/object type
- * (menuSection, menuItem, contact/siteSettings) must be defined and added to
- * `types` below; the Studio has nothing to manage until this exists. This is
- * the most important file to fill in next. See ../../doc.md.
- */
-import { type SchemaTypeDefinition } from 'sanity'
+import {type SchemaTypeDefinition} from 'sanity'
+
+import {menuItem} from './menuItem'
+import {menuSection} from './menuSection'
+import {siteSettings} from './siteSettings'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [],
+  types: [menuSection, menuItem, siteSettings],
 }
