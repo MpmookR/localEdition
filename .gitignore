@@ -42,3 +42,6 @@ next-env.d.ts
 doc.md
 AGENTS.md
 CLAUDE.md
+
+# sanity typegen intermediate artifact (sanity.types.ts is the one that matters, keep that committed)
+schema.json
