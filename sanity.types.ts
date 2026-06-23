@@ -32,6 +32,7 @@ export type SiteSettings = {
   openTimeTh?: string;
   mapUrl?: string;
   phone?: string;
+  email?: string;
   socialLinks?: Array<{
     label?: string;
     url?: string;
@@ -247,7 +248,7 @@ export type AllSanitySchemaTypes =
 
 // Source: sanity/lib/queries.ts
 // Variable: menuSectionsQuery
-// Query: *[_type == "menuSection"] | order(sortOrder asc){    _id,    titleEn,    titleTh,    "items": *[_type == "menuItem" && references(^._id)] | order(sortOrder asc){      _id,      nameEn,      price    }  }
+// Query: *[_type == "menuSection"] | order(sortOrder asc){    _id,    titleEn,    titleTh,    "items": *[_type == "menuItem" && references(^._id)] | order(sortOrder asc){      _id,      nameEn,      nameTh,      ingredientsEn,      ingredientsTh,      price    }  }
 export type MenuSectionsQueryResult = Array<{
   _id: string;
   titleEn: string | null;
@@ -255,14 +256,41 @@ export type MenuSectionsQueryResult = Array<{
   items: Array<{
     _id: string;
     nameEn: string | null;
+    nameTh: string | null;
+    ingredientsEn: string | null;
+    ingredientsTh: string | null;
     price: number | null;
   }>;
 }>;
+
+// Source: sanity/lib/queries.ts
+// Variable: siteSettingsQuery
+// Query: *[_type == "siteSettings"][0]{    barName,    introEn,    introTh,    addressEn,    addressTh,    openDaysEn,    openDaysTh,    openTimeEn,    openTimeTh,    mapUrl,    phone,    email,    socialLinks  }
+export type SiteSettingsQueryResult = {
+  barName: string | null;
+  introEn: string | null;
+  introTh: string | null;
+  addressEn: string | null;
+  addressTh: string | null;
+  openDaysEn: string | null;
+  openDaysTh: string | null;
+  openTimeEn: string | null;
+  openTimeTh: string | null;
+  mapUrl: string | null;
+  phone: string | null;
+  email: string | null;
+  socialLinks: Array<{
+    label?: string;
+    url?: string;
+    _key: string;
+  }> | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "menuSection"] | order(sortOrder asc){\n    _id,\n    titleEn,\n    titleTh,\n    "items": *[_type == "menuItem" && references(^._id)] | order(sortOrder asc){\n      _id,\n      nameEn,\n      price\n    }\n  }\n': MenuSectionsQueryResult;
+    '\n  *[_type == "menuSection"] | order(sortOrder asc){\n    _id,\n    titleEn,\n    titleTh,\n    "items": *[_type == "menuItem" && references(^._id)] | order(sortOrder asc){\n      _id,\n      nameEn,\n      nameTh,\n      ingredientsEn,\n      ingredientsTh,\n      price\n    }\n  }\n': MenuSectionsQueryResult;
+    '\n  *[_type == "siteSettings"][0]{\n    barName,\n    introEn,\n    introTh,\n    addressEn,\n    addressTh,\n    openDaysEn,\n    openDaysTh,\n    openTimeEn,\n    openTimeTh,\n    mapUrl,\n    phone,\n    email,\n    socialLinks\n  }\n': SiteSettingsQueryResult;
   }
 }

@@ -14,7 +14,28 @@ export const menuSectionsQuery = defineQuery(`
     "items": *[_type == "menuItem" && references(^._id)] | order(sortOrder asc){
       _id,
       nameEn,
+      nameTh,
+      ingredientsEn,
+      ingredientsTh,
       price
     }
+  }
+`);
+
+export const siteSettingsQuery = defineQuery(`
+  *[_type == "siteSettings"][0]{
+    barName,
+    introEn,
+    introTh,
+    addressEn,
+    addressTh,
+    openDaysEn,
+    openDaysTh,
+    openTimeEn,
+    openTimeTh,
+    mapUrl,
+    phone,
+    email,
+    socialLinks
   }
 `);

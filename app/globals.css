@@ -1,29 +1,66 @@
 /**
  * Global styles + Tailwind v4 config.
+ *
+ * Local Edition is a dark-bar menu read on a phone in low light — there is no
+ * light theme to toggle to, so the palette below is the only theme.
  */
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #130F0C;
+  --foreground: #fcd995;
+  --muted: #928876;
+  --gold: #dbaf59;
+  --cream: #fcd995;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-gold: var(--gold);
+  --color-cream: var(--cream);
+
+  --font-display-en: var(--font-cinzel-decorative);
+  --font-display-th: var(--font-trirong);
+  --font-body-en: var(--font-cormorant-garamond);
+  --font-body-th: var(--font-noto-serif-thai);
+  --font-script: var(--font-mali);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/**
+ * Language pairing relies on the `lang` attribute (set on <html> or a wrapping
+ * element by the EN/TH toggle, once built) rather than per-element classes —
+ * flip `lang` and h1/h2/p/footer retarget automatically. Mali (handwriting)
+ * stays the same font in both languages, so it's opted into via a utility
+ * class wherever it's used, not wired into these element selectors.
+ */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body-en), serif;
+}
+
+:lang(th) body {
+  font-family: var(--font-body-th), serif;
+}
+
+h1 {
+  font-family: var(--font-display-en), serif;
+}
+
+:lang(th) h1 {
+  font-family: var(--font-display-th), serif;
+}
+
+h2,
+p,
+footer {
+  font-family: var(--font-body-en), serif;
+}
+
+:lang(th) h2,
+:lang(th) p,
+:lang(th) footer {
+  font-family: var(--font-body-th), serif;
 }

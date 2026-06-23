@@ -18,14 +18,14 @@ export const siteSettings = defineType({
       name: 'introEn',
       title: 'Intro Text (English)',
       type: 'text',
-      initialValue: 'Local Edition began with a simple love for cocktails and the feeling of a night that moves slowly. The bar was built to be a safe, easygoing space where you can relax, speak softly over gentle music, watch old films on the wall, and enjoy a cocktail made with care. It is a place for unhurried conversations, soft evenings, and a glass that feels personal. Pull up a stool. Tonight’s edition is yours to write together.',
+      initialValue: 'Local Edition began with a simple love for cocktails and nights that move slowly. We built this bar as a safe, easygoing space to relax, speak softly over gentle music, watch old films on the wall, and enjoy a cocktail made with care. Pull up a stool. Tonight’s edition is yours to write.',
       rows: 3,
     }),
     defineField({
       name: 'introTh',
       title: 'Intro Text (Thai)',
       type: 'text',
-      initialValue: 'Local Edition เริ่มต้นจากความรักในค็อกเทลและค่ำคืนที่เคลื่อนไหวอย่างช้า ๆ บาร์แห่งนี้ถูกสร้างขึ้นเพื่อเป็นพื้นที่ที่ปลอดภัยและผ่อนคลาย ที่ซึ่งคุณสามารถพักผ่อน พูดคุยกันอย่างนุ่มนวลไปกับเสียงเพลงเบา ๆ ชมภาพยนตร์เก่า ๆ บนผนัง และเพลิดเพลินกับค็อกเทลที่ปรุงด้วยความใส่ใจ เป็นสถานที่สำหรับการสนทนาอย่างไม่เร่งรีบ ค่ำคืนที่แสนอ่อนโยน และแก้วที่รู้สึกเป็นส่วนตัว เชิญมานั่งบนเก้าอี้บาร์ คืนนี้คือฉบับของคุณที่จะเขียนร่วมกัน',
+      initialValue: 'Local Edition เริ่มต้นจากความชอบง่าย ๆ ในค็อกเทล และบรรยากาศของค่ำคืนที่ค่อย ๆ ผ่านไปอย่างไม่ต้องรีบ เราอยากให้บาร์นี้เป็นพื้นที่ที่ทุกคนมานั่งพักได้สบาย ๆ คุยกันเบา ๆ ฟังเพลงเพราะ ๆ ดูหนังเก่าบนผนัง แล้วจิบค็อกเทลสักแก้วที่เราตั้งใจทำให้เลือกที่นั่งที่ชอบ แล้วปล่อยให้คืนนี้เป็น Local Edition ของคุณ',
       rows: 3,
     }),
     defineField({
@@ -77,6 +77,12 @@ export const siteSettings = defineType({
       title: 'Phone',
       type: 'string',
       initialValue: '+66 88 613 4282',
+    }),
+    defineField({
+      name: 'email',
+      title: 'Email',
+      type: 'string',
+      validation: (rule) => rule.email(),
     }),
     defineField({
       name: 'socialLinks',
@@ -131,6 +137,7 @@ export const siteSettings = defineType({
 //   openTimeTh: '19:00 - เที่ยงคืน',
 //   mapUrl: 'https://maps.google.com/?q=...',
 //   phone: '+66 2 123 4567',
+//   email: 'hello@localedition.bar',
 //   socialLinks: [
 //     { label: 'Instagram', url: 'https://instagram.com/localedition' },
 //   ],

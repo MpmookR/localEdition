@@ -1,48 +1,51 @@
 /**
  * Site home page — what a customer sees first after scanning the bar's QR
- * code. Still the default create-next-app starter content; this is where
- * the digital menu (sections, items, language switch) needs to be built.
- * See ../doc.md for the menu content model and architecture.
- *
- * TEMP: smoke-testing the Sanity data fetch below (menuSection[1] + its
- * menuItems) before building the real menu UI.
+ * code. Fetches menu sections + site settings from Sanity and renders the
+ * bilingual homepage (EN/TH toggle via LanguageProvider). The full menu page
+ * (linked from here) hasn't been built yet. See ../doc.md for the content
+ * model and architecture.
  */
-import Image from "next/image";
-
 import { client } from "@/sanity/lib/client";
-import { menuSectionsQuery } from "@/sanity/lib/queries";
+import { menuSectionsQuery, siteSettingsQuery } from "@/sanity/lib/queries";
+
+import { LanguageProvider } from "@/app/i18n/language-context";
+import { LanguageToggle } from "@/app/components/LanguageToggle";
+import { Hero } from "@/app/components/Hero";
+import { PhotoStrip } from "@/app/components/PhotoStrip";
+import { IntroQuote } from "@/app/components/IntroQuote";
+import { SignatureDrinks } from "@/app/components/SignatureDrinks";
+import { FindUs } from "@/app/components/FindUs";
 
 export default async function Home() {
-  const sections = await client.fetch(menuSectionsQuery);
-  const section = sections[1];
+  const [sections, settings] = await Promise.all([
+    client.fetch(menuSectionsQuery),
+    client.fetch(siteSettingsQuery),
+  ]);
+
+  // No "featured" flag exists in the schema yet — assumes the first section
+  // (lowest sortOrder) is the one to preview on the homepage.
+  const signatureItems = sections[0]?.items.slice(0, 3) ?? [];
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-
-        <div className="w-full rounded-lg border border-zinc-200 p-6 text-left dark:border-zinc-800">
-          <p className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-500">
-            Sanity fetch test — menuSection[1]
-          </p>
-          {section ? (
-            <>
-              <h2 className="text-xl font-semibold text-black dark:text-zinc-50">
-                {section.titleEn} ({section.titleTh})
-              </h2>
-              <ul className="mt-3 space-y-1 text-zinc-700 dark:text-zinc-300">
-                {section.items.map((item) => (
-                  <li key={item._id}>
-                    {item.nameEn} — {item.price} THB
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : (
-            <p className="text-zinc-500">No section found at index 1.</p>
-          )}
+    <LanguageProvider>
+      <div className="relative flex flex-1 flex-col bg-background text-foreground">
+        <div className="absolute right-8 top-4 z-10">
+          <LanguageToggle />
         </div>
 
-      </main>
-    </div>
+        <Hero />
+        <PhotoStrip />
+        <IntroQuote
+          introEn={settings?.introEn ?? null}
+          introTh={settings?.introTh ?? null}
+        />
+        <SignatureDrinks items={signatureItems} />
+        <FindUs settings={settings} />
+
+        <footer className="px-6 py-8 text-center text-xs text-muted">
+          © {new Date().getFullYear()} Local Edition. All rights reserved.
+        </footer>
+      </div>
+    </LanguageProvider>
   );
 }
