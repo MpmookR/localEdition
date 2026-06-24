@@ -15,18 +15,23 @@ export function IntroQuote({
   if (!quote) return null;
 
   return (
-    <section className="flex flex-col items-center gap-6 px-8 py-14 text-center">
-      <span className="text-gold" aria-hidden>
-        ◆
-      </span>
-
+    <section className="flex flex-col items-center gap-8 px-8 py-14 text-center">
+      <div className="flex w-full max-w-[220px] items-center gap-3" aria-hidden>
+        <span className="h-px flex-1 bg-gradient-to-r from-transparent to-gold/50" />
+        <span className="text-gold">◆</span>
+        <span className="h-px flex-1 bg-gradient-to-l from-transparent to-gold/50" />
+      </div>
+      
+      <div className="flex flex-col w-full max-w-[880px] items-center gap-8">
       <p className="text-lg italic leading-relaxed text-cream/90">“{quote}”</p>
-
       <p className="text-sm text-muted">— Yuu &amp; Sorn</p>
-
-      <span className="text-gold" aria-hidden>
-        ◆
-      </span>
+      </div>
+      
+      <div className="flex w-full max-w-[220px] items-center gap-3" aria-hidden>
+        <span className="h-px flex-1 bg-gradient-to-r from-transparent to-gold/50" />
+        <span className="text-gold">◆</span>
+        <span className="h-px flex-1 bg-gradient-to-l from-transparent to-gold/50" />
+      </div>
     </section>
   );
 }

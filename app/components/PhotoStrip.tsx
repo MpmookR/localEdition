@@ -66,7 +66,7 @@ export function PhotoStrip() {
       aria-label="Bar photo carousel"
     >
       <div
-        className="relative h-80 w-full cursor-grab touch-pan-y select-none sm:h-96"
+        className="relative h-96 w-full cursor-grab touch-pan-y select-none sm:h-120"
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
         onPointerCancel={() => {

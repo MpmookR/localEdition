@@ -41,7 +41,7 @@ export function Hero() {
 
         <Link
           href="/menu"
-          className="w-full max-w-xs rounded-md bg-gold px-8 py-3 text-base font-bold text-background sm:max-w-sm"
+          className="w-full max-w-xs rounded-md border border-gold bg-gold px-8 py-3 text-base font-bold text-background transition-colors duration-300 hover:bg-background hover:text-gold sm:max-w-sm"
         >
           {copy.cta} →
         </Link>

@@ -18,7 +18,7 @@ function ToggleButton({
       type="button"
       aria-pressed={active}
       onClick={() => onSelect(language)}
-      className={`rounded-[4px] px-2.5 py-1 text-xs font-semibold tracking-wide transition-colors ${
+      className={`cursor-pointer rounded-[4px] px-2.5 py-1 text-xs font-semibold tracking-wide transition-colors ${
         active ? "bg-gold text-background" : "text-cream/70"
       }`}
     >
