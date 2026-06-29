@@ -1,7 +1,9 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import { useCallback, useEffect, useState } from "react";
 
 import vibe1 from "../../public/img/PhotoStrip/vibe_1.jpg";
 import vibe2 from "../../public/img/PhotoStrip/vibe_2.png";
@@ -20,79 +22,61 @@ const PHOTOS: Array<{ src: StaticImageData; alt: string }> = [
 ];
 
 const AUTO_SLIDE_DELAY = 4500;
-const DRAG_THRESHOLD = 40;
 
 export function PhotoStrip() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+    Autoplay({ delay: AUTO_SLIDE_DELAY, stopOnInteraction: false }),
+  ]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const dragStartX = useRef<number | null>(null);
-
-  const showPrevious = useCallback(() => {
-    setActiveIndex((current) => (current === 0 ? PHOTOS.length - 1 : current - 1));
-  }, []);
-
-  const showNext = useCallback(() => {
-    setActiveIndex((current) => (current === PHOTOS.length - 1 ? 0 : current + 1));
-  }, []);
 
   useEffect(() => {
-    const slideTimer = window.setInterval(showNext, AUTO_SLIDE_DELAY);
+    if (!emblaApi) return;
 
-    return () => window.clearInterval(slideTimer);
-  }, [showNext]);
+    // emblaApi is null on first render and ready after mount, so re-run this
+    // effect once it appears. Embla drives slide changes itself (drag, autoplay,
+    // buttons all call its scroll methods) and fires "select" on every settle;
+    // mirror that into React state here just to drive the active dot indicator.
+    const onSelect = () => setActiveIndex(emblaApi.selectedScrollSnap());
+    emblaApi.on("select", onSelect);
+    onSelect();
 
-  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
-    dragStartX.current = event.clientX;
-    event.currentTarget.setPointerCapture(event.pointerId);
-  };
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
+  }, [emblaApi]);
 
-  const handlePointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (dragStartX.current === null) return;
-
-    const dragDistance = event.clientX - dragStartX.current;
-    dragStartX.current = null;
-
-    if (Math.abs(dragDistance) < DRAG_THRESHOLD) return;
-
-    if (dragDistance > 0) {
-      showPrevious();
-    } else {
-      showNext();
-    }
-  };
+  const showPrevious = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const showNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   return (
     <section
       className="relative overflow-hidden border-y border-gold/20 bg-background"
       aria-label="Bar photo carousel"
     >
-      <div
-        className="relative h-96 w-full cursor-grab touch-pan-y select-none sm:h-120"
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
-        onPointerCancel={() => {
-          dragStartX.current = null;
-        }}
-      >
-        {PHOTOS.map((photo, index) => (
-          <Image
-            key={photo.alt}
-            src={photo.src}
-            alt={photo.alt}
-            fill
-            sizes="100vw"
-            draggable={false}
-            className={`object-cover transition-opacity duration-500 ${
-              index === activeIndex ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        ))}
+      {/* emblaRef on the viewport; Embla finds the slide track as its first child (here) and drags by translating it */}
+      <div className="h-96 w-full overflow-hidden sm:h-120" ref={emblaRef}>
+        <div className="flex h-full">
+          {PHOTOS.map((photo) => (
+            <div key={photo.alt} className="relative h-full w-full shrink-0">
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                sizes="100vw"
+                draggable={false}
+                className="object-cover"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-between px-4">
+      {/* Hidden below sm: — touch users swipe instead of tapping arrows */}
+      <div className="pointer-events-none absolute inset-x-0 top-1/2 hidden -translate-y-1/2 justify-between px-4 sm:flex">
         <button
           type="button"
           onClick={showPrevious}
-          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-[4px] border border-gold/40 bg-background/70 text-lg text-gold"
+          className="pointer-events-auto flex h-10 w-10 cursor-pointer items-center justify-center rounded-[4px] border border-gold/40 bg-background/70 text-lg text-gold"
           aria-label="Show previous photo"
         >
           ←
@@ -100,7 +84,7 @@ export function PhotoStrip() {
         <button
           type="button"
           onClick={showNext}
-          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-[4px] border border-gold/40 bg-background/70 text-lg text-gold"
+          className="pointer-events-auto flex h-10 w-10 cursor-pointer items-center justify-center rounded-[4px] border border-gold/40 bg-background/70 text-lg text-gold"
           aria-label="Show next photo"
         >
           →
@@ -112,7 +96,7 @@ export function PhotoStrip() {
           <button
             key={photo.alt}
             type="button"
-            onClick={() => setActiveIndex(index)}
+            onClick={() => emblaApi?.scrollTo(index)}
             className={`h-1.5 rounded-full transition-all ${
               index === activeIndex ? "w-6 bg-gold" : "w-1.5 bg-cream/40"
             }`}

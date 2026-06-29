@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import heroImage from "../../public/img/Hero.png";
+import heroImage from "../../public/img/Hero3.png";
 
 import { useLanguage } from "@/app/i18n/language-context";
 
