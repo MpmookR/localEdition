@@ -15,6 +15,7 @@ import { PhotoStrip } from "@/app/components/PhotoStrip";
 import { IntroQuote } from "@/app/components/IntroQuote";
 import { SignatureDrinks } from "@/app/components/SignatureDrinks";
 import { FindUs } from "@/app/components/FindUs";
+import { Footer } from "@/app/components/Footer";
 
 export default async function Home() {
   const [sections, settings] = await Promise.all([
@@ -24,7 +25,7 @@ export default async function Home() {
 
   // No "featured" flag exists in the schema yet — assumes the first section
   // (lowest sortOrder) is the one to preview on the homepage.
-  const signatureItems = sections[0]?.items.slice(0, 3) ?? [];
+  const signatureItems = sections[1]?.items.slice(0, 3) ?? [];
 
   return (
     <LanguageProvider>
@@ -41,10 +42,8 @@ export default async function Home() {
         />
         <SignatureDrinks items={signatureItems} />
         <FindUs settings={settings} />
-
-        <footer className="px-6 py-8 text-center text-xs text-muted">
-          © {new Date().getFullYear()} Local Edition. All rights reserved.
-        </footer>
+          
+        <Footer />
       </div>
     </LanguageProvider>
   );

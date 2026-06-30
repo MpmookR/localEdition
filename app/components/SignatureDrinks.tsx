@@ -25,8 +25,8 @@ export function SignatureDrinks({ items }: { items: MenuItem[] }) {
   if (items.length === 0) return null;
 
   return (
-    <section className="flex flex-col gap-6 px-6 py-10">
-      <h2 className="text-center text-sm uppercase tracking-[0.3em] text-cream/80">
+    <section className="flex flex-col gap-4 px-8 py-2 sm:gap-6 sm:px-24 sm:py-4">
+      <h2 className="text-center text-lg uppercase tracking-[0.3em] text-gold">
         {copy.heading}
       </h2>
 
@@ -46,23 +46,33 @@ export function SignatureDrinks({ items }: { items: MenuItem[] }) {
               <div>
                 <p className="text-lg text-cream">{name}</p>
                 {ingredients && (
-                  <p className="text-sm italic text-muted">{ingredients}</p>
+                  <p className="text-base italic text-muted">{ingredients}</p>
                 )}
               </div>
               {item.price != null && (
-                <span className="shrink-0 text-sm text-gold">฿{item.price}</span>
+                <span className="shrink-0 text-base text-gold">฿{item.price}</span>
               )}
             </li>
           );
         })}
       </ul>
 
-      <Link
-        href="/menu"
-        className="self-center text-sm uppercase tracking-widest text-gold underline-offset-4 hover:underline"
-      >
-        {copy.cta} →
-      </Link>
+      <div className="flex flex-col items-center gap-4 py-8 sm:gap-8">
+        <Link
+          href="/menu"
+          className="w-full max-w-xs text-center rounded-lg bg-background px-8 py-3 text-base font-bold text-gold tracking-widest transition-colors duration-600 hover:bg-gold hover:text-background sm:max-w-sm"
+        >
+          {copy.cta} →
+        </Link>
+
+        <div className="flex w-full max-w-[220px] items-center gap-4" aria-hidden>
+          <span className="h-px flex-1 bg-gradient-to-r from-transparent to-gold/50" />
+          <span className="text-gold">◆</span>
+          <span className="h-px flex-1 bg-gradient-to-l from-transparent to-gold/50" />
+        </div>
+      </div>
     </section>
   );
 }
+
+          // className="text-base uppercase tracking-widest text-gold underline-offset-4 hover:underline"

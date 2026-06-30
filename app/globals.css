@@ -12,6 +12,11 @@
   --muted: #928876;
   --gold: #dbaf59;
   --cream: #fcd995;
+  --le-text-xs: 0.8125rem;
+  --le-text-sm: 0.9375rem;
+  --le-text-base: 1.0625rem;
+  --le-text-lg: 1.25rem;
+  --le-text-xl: 1.5rem;
 }
 
 @theme inline {
@@ -26,6 +31,17 @@
   --font-body-en: var(--font-cormorant-garamond);
   --font-body-th: var(--font-noto-serif-thai);
   --font-script: var(--font-mali);
+
+  --text-xs: var(--le-text-xs);
+  --text-xs--line-height: 1.45;
+  --text-sm: var(--le-text-sm);
+  --text-sm--line-height: 1.5;
+  --text-base: var(--le-text-base);
+  --text-base--line-height: 1.6;
+  --text-lg: var(--le-text-lg);
+  --text-lg--line-height: 1.55;
+  --text-xl: var(--le-text-xl);
+  --text-xl--line-height: 1.4;
 }
 
 /**
@@ -39,6 +55,10 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body-en), serif;
+  font-size: var(--le-text-base);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 :lang(th) body {
@@ -63,4 +83,14 @@ footer {
 :lang(th) p,
 :lang(th) footer {
   font-family: var(--font-body-th), serif;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --le-text-xs: 0.875rem;
+    --le-text-sm: 1rem;
+    --le-text-base: 1.125rem;
+    --le-text-lg: 1.5rem;
+    --le-text-xl: 1.8rem;
+  }
 }

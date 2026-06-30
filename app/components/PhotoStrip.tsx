@@ -76,7 +76,7 @@ export function PhotoStrip() {
         <button
           type="button"
           onClick={showPrevious}
-          className="pointer-events-auto flex h-10 w-10 cursor-pointer items-center justify-center rounded-[4px] border border-gold/40 bg-background/70 text-lg text-gold"
+          className="pointer-events-auto flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-gold/40 bg-background/70 text-lg text-gold"
           aria-label="Show previous photo"
         >
           ←
@@ -84,7 +84,7 @@ export function PhotoStrip() {
         <button
           type="button"
           onClick={showNext}
-          className="pointer-events-auto flex h-10 w-10 cursor-pointer items-center justify-center rounded-[4px] border border-gold/40 bg-background/70 text-lg text-gold"
+          className="pointer-events-auto flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-gold/40 bg-background/70 text-lg text-gold"
           aria-label="Show next photo"
         >
           →

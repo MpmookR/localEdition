@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import heroImage from "../../public/img/Hero3.png";
+import heroImage from "../../public/img/Hero4.png";
 
 import { useLanguage } from "@/app/i18n/language-context";
 
@@ -34,14 +34,14 @@ export function Hero() {
         aria-hidden
       />
 
-      <div className="relative z-10 mt-auto flex w-full flex-col items-center gap-4 sm:gap-2">
+      <div className="relative z-10 mt-auto flex w-full flex-col items-center gap-4 sm:gap-8">
         <p className="text-base uppercase tracking-[0.3em] text-cream/90">
           {copy.tagline}
         </p>
 
         <Link
           href="/menu"
-          className="w-full max-w-xs rounded-md border border-gold bg-gold px-8 py-3 text-base font-bold text-background transition-colors duration-300 hover:bg-background hover:text-gold sm:max-w-sm"
+          className="w-full max-w-xs rounded-lg border border-gold bg-background px-8 py-3 text-base font-bold text-gold tracking-widest transition-colors duration-600 hover:bg-gold hover:text-background sm:max-w-sm"
         >
           {copy.cta} →
         </Link>
@@ -49,3 +49,5 @@ export function Hero() {
     </section>
   );
 }
+
+//  className="w-full max-w-xs rounded-lg border border-gold bg-gold px-8 py-3 text-base font-bold text-background transition-colors duration-300 hover:bg-background hover:text-gold sm:max-w-sm"
