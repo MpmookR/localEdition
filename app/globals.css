@@ -85,7 +85,7 @@ footer {
   font-family: var(--font-body-th), serif;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   :root {
     --le-text-xs: 0.875rem;
     --le-text-sm: 1rem;

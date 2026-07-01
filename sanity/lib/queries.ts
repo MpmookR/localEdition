@@ -7,18 +7,40 @@
 import { defineQuery } from "next-sanity";
 
 export const menuSectionsQuery = defineQuery(`
-  *[_type == "menuSection"] | order(sortOrder asc){
+  *[_type == "menuSection" && isVisible == true] | order(sortOrder asc){
     _id,
     titleEn,
     titleTh,
-    "items": *[_type == "menuItem" && references(^._id)] | order(sortOrder asc){
+    descriptionEn,
+    descriptionTh,
+    "items": *[
+      _type == "menuItem" &&
+      references(^._id) &&
+      status != "hidden"
+    ] | order(sortOrder asc){
       _id,
       nameEn,
       nameTh,
       ingredientsEn,
       ingredientsTh,
-      price
+      descriptionEn,
+      descriptionTh,
+      price,
+      spirits,
+      status
     }
+  }
+`);
+
+export const specialOfMonthQuery = defineQuery(`
+  *[_type == "menuItem" && isFeatured == true && status != "hidden"] | order(sortOrder asc) [0]{
+    _id,
+    nameEn,
+    nameTh,
+    descriptionEn,
+    descriptionTh,
+    price,
+    image
   }
 `);
 

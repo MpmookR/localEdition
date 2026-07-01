@@ -25,7 +25,7 @@ export function SignatureDrinks({ items }: { items: MenuItem[] }) {
   if (items.length === 0) return null;
 
   return (
-    <section className="flex flex-col gap-4 px-8 py-2 sm:gap-6 sm:px-24 sm:py-4">
+    <section className="flex flex-col gap-4 px-8 py-2 sm:gap-6 sm:px-24 sm:py-8">
       <h2 className="text-center text-lg uppercase tracking-[0.3em] text-gold">
         {copy.heading}
       </h2>

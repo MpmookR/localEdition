@@ -24,13 +24,26 @@ export type SiteSettings = {
   barName?: string;
   introEn?: string;
   introTh?: string;
-  addressEn?: string;
-  addressTh?: string;
+  addressEn?: {
+    line1?: string;
+    line2?: string;
+    city?: string;
+    province?: string;
+    postal?: string;
+  };
+  addressTh?: {
+    line1?: string;
+    line2?: string;
+    city?: string;
+    province?: string;
+    postal?: string;
+  };
   openDaysEn?: string;
   openDaysTh?: string;
   openTimeEn?: string;
   openTimeTh?: string;
   mapUrl?: string;
+  mapEmbedUrl?: string;
   phone?: string;
   email?: string;
   socialLinks?: Array<{
@@ -83,6 +96,7 @@ export type MenuItem = {
     | "nonAlcoholic"
   >;
   status?: "available" | "hidden" | "soldOut";
+  isFeatured?: boolean;
   sortOrder?: number;
   image?: {
     asset?: SanityImageAssetReference;
@@ -248,35 +262,87 @@ export type AllSanitySchemaTypes =
 
 // Source: sanity/lib/queries.ts
 // Variable: menuSectionsQuery
-// Query: *[_type == "menuSection"] | order(sortOrder asc){    _id,    titleEn,    titleTh,    "items": *[_type == "menuItem" && references(^._id)] | order(sortOrder asc){      _id,      nameEn,      nameTh,      ingredientsEn,      ingredientsTh,      price    }  }
+// Query: *[_type == "menuSection" && isVisible == true] | order(sortOrder asc){    _id,    titleEn,    titleTh,    descriptionEn,    descriptionTh,    "items": *[      _type == "menuItem" &&      references(^._id) &&      status != "hidden"    ] | order(sortOrder asc){      _id,      nameEn,      nameTh,      ingredientsEn,      ingredientsTh,      descriptionEn,      descriptionTh,      price,      spirits,      status    }  }
 export type MenuSectionsQueryResult = Array<{
   _id: string;
   titleEn: string | null;
   titleTh: string | null;
+  descriptionEn: string | null;
+  descriptionTh: string | null;
   items: Array<{
     _id: string;
     nameEn: string | null;
     nameTh: string | null;
     ingredientsEn: string | null;
     ingredientsTh: string | null;
+    descriptionEn: string | null;
+    descriptionTh: string | null;
     price: number | null;
+    spirits: Array<
+      | "beer"
+      | "brandyCognac"
+      | "gin"
+      | "liqueurAperitif"
+      | "nonAlcoholic"
+      | "rum"
+      | "sakeSoju"
+      | "tequilaMezcal"
+      | "vermouthFortifiedWine"
+      | "vodka"
+      | "whiskeyBourbon"
+      | "wineSparkling"
+    > | null;
+    status: "available" | "hidden" | "soldOut" | null;
   }>;
 }>;
 
 // Source: sanity/lib/queries.ts
+// Variable: specialOfMonthQuery
+// Query: *[_type == "menuItem" && isFeatured == true && status != "hidden"] | order(sortOrder asc) [0]{    _id,    nameEn,    nameTh,    descriptionEn,    descriptionTh,    price,    image  }
+export type SpecialOfMonthQueryResult = {
+  _id: string;
+  nameEn: string | null;
+  nameTh: string | null;
+  descriptionEn: string | null;
+  descriptionTh: string | null;
+  price: number | null;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+} | null;
+
+// Source: sanity/lib/queries.ts
 // Variable: siteSettingsQuery
-// Query: *[_type == "siteSettings"][0]{    barName,    introEn,    introTh,    addressEn,    addressTh,    openDaysEn,    openDaysTh,    openTimeEn,    openTimeTh,    mapUrl,    phone,    email,    socialLinks  }
+// Query: *[_type == "siteSettings"][0]{    barName,    introEn,    introTh,    addressEn{ line1, line2, city, province, postal },    addressTh{ line1, line2, city, province, postal },    openDaysEn,    openDaysTh,    openTimeEn,    openTimeTh,    mapUrl,    mapEmbedUrl,    phone,    email,    socialLinks  }
 export type SiteSettingsQueryResult = {
   barName: string | null;
   introEn: string | null;
   introTh: string | null;
-  addressEn: string | null;
-  addressTh: string | null;
+  addressEn: {
+    line1: string | null;
+    line2: string | null;
+    city: string | null;
+    province: string | null;
+    postal: string | null;
+  } | null;
+  addressTh: {
+    line1: string | null;
+    line2: string | null;
+    city: string | null;
+    province: string | null;
+    postal: string | null;
+  } | null;
   openDaysEn: string | null;
   openDaysTh: string | null;
   openTimeEn: string | null;
   openTimeTh: string | null;
   mapUrl: string | null;
+  mapEmbedUrl: string | null;
   phone: string | null;
   email: string | null;
   socialLinks: Array<{
@@ -290,7 +356,8 @@ export type SiteSettingsQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "menuSection"] | order(sortOrder asc){\n    _id,\n    titleEn,\n    titleTh,\n    "items": *[_type == "menuItem" && references(^._id)] | order(sortOrder asc){\n      _id,\n      nameEn,\n      nameTh,\n      ingredientsEn,\n      ingredientsTh,\n      price\n    }\n  }\n': MenuSectionsQueryResult;
-    '\n  *[_type == "siteSettings"][0]{\n    barName,\n    introEn,\n    introTh,\n    addressEn,\n    addressTh,\n    openDaysEn,\n    openDaysTh,\n    openTimeEn,\n    openTimeTh,\n    mapUrl,\n    phone,\n    email,\n    socialLinks\n  }\n': SiteSettingsQueryResult;
+    '\n  *[_type == "menuSection" && isVisible == true] | order(sortOrder asc){\n    _id,\n    titleEn,\n    titleTh,\n    descriptionEn,\n    descriptionTh,\n    "items": *[\n      _type == "menuItem" &&\n      references(^._id) &&\n      status != "hidden"\n    ] | order(sortOrder asc){\n      _id,\n      nameEn,\n      nameTh,\n      ingredientsEn,\n      ingredientsTh,\n      descriptionEn,\n      descriptionTh,\n      price,\n      spirits,\n      status\n    }\n  }\n': MenuSectionsQueryResult;
+    '\n  *[_type == "menuItem" && isFeatured == true && status != "hidden"] | order(sortOrder asc) [0]{\n    _id,\n    nameEn,\n    nameTh,\n    descriptionEn,\n    descriptionTh,\n    price,\n    image\n  }\n': SpecialOfMonthQueryResult;
+    '\n  *[_type == "siteSettings"][0]{\n    barName,\n    introEn,\n    introTh,\n    addressEn{ line1, line2, city, province, postal },\n    addressTh{ line1, line2, city, province, postal },\n    openDaysEn,\n    openDaysTh,\n    openTimeEn,\n    openTimeTh,\n    mapUrl,\n    mapEmbedUrl,\n    phone,\n    email,\n    socialLinks\n  }\n': SiteSettingsQueryResult;
   }
 }
