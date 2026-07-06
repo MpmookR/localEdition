@@ -26,8 +26,7 @@ export const menuSectionsQuery = defineQuery(`
       descriptionEn,
       descriptionTh,
       price,
-      spirits,
-      status
+      spirits
     }
   }
 `);

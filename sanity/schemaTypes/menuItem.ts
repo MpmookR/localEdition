@@ -113,7 +113,6 @@ export const menuItem = defineType({
         list: [
           {title: 'Available', value: 'available'},
           {title: 'Temporarily hidden', value: 'hidden'},
-          {title: 'Sold out', value: 'soldOut'},
         ],
       },
       validation: (rule) => rule.required(),

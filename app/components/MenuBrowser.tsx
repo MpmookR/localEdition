@@ -14,7 +14,6 @@ type MenuItem = {
   descriptionTh: string | null;
   price: number | null;
   spirits: string[] | null;
-  status: "available" | "hidden" | "soldOut" | null;
 };
 
 type MenuSection = {
@@ -45,8 +44,8 @@ const SPIRIT_LABELS: Record<string, { en: string; th: string }> = {
 const SPIRIT_ORDER = Object.keys(SPIRIT_LABELS);
 
 const COPY = {
-  en: { filterBy: "Filter By Spirit", all: "All", soldOut: "Sold Out" },
-  th: { filterBy: "กรองตามประเภทเครื่องดื่ม", all: "ทั้งหมด", soldOut: "สินค้าหมด" },
+  en: { filterBy: "Filter By Spirit", all: "All" },
+  th: { filterBy: "กรองตามประเภทเครื่องดื่ม", all: "ทั้งหมด" },
 } as const;
 
 export function MenuBrowser({ sections }: { sections: MenuSection[] }) {
@@ -65,9 +64,9 @@ export function MenuBrowser({ sections }: { sections: MenuSection[] }) {
   }, [sections]);
 
   return (
-    <section className="flex flex-col gap-4 px-8 py-2 sm:gap-6 sm:px-24 sm:py-4">
-      <div className="flex flex-col gap-3">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">
+    <section className="flex flex-col gap-4 px-8 py-4 sm:gap-6 sm:px-24 sm:py-8">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between py-4 sm:py-6">
+        <p className="text-xs uppercase tracking-wider text-muted">
           {copy.filterBy}
         </p>
         <div className="flex flex-wrap gap-2">
@@ -89,7 +88,7 @@ export function MenuBrowser({ sections }: { sections: MenuSection[] }) {
         </div>
       </div>
 
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-8 py-4 sm:gap-16">
         {sections.map((section) => (
           <MenuSectionBlock
             key={section._id}
@@ -149,7 +148,7 @@ function MenuSectionBlock({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-col gap-2 border-b border-gold/15 pb-2">
+      <div className="flex flex-col items-center pb-2">
         {title && (
           <div className="flex w-full items-center gap-3 text-gold sm:gap-4">
             <span className="h-px flex-1 bg-gradient-to-r from-transparent to-gold/50" />
@@ -165,7 +164,7 @@ function MenuSectionBlock({
             <span className="h-px flex-1 bg-gradient-to-l from-transparent to-gold/50" />
           </div>
         )}
-        {description && <p className="text-sm italic text-muted">{description}</p>}
+        {description && <p className="text-base italic text-muted font-medium">{description}</p>}
       </div>
 
       <ul className="flex flex-col">
@@ -179,7 +178,6 @@ function MenuSectionBlock({
 
 function MenuItemRow({ item }: { item: MenuItem }) {
   const { language } = useLanguage();
-  const copy = COPY[language];
 
   const name = language === "en" ? item.nameEn : item.nameTh ?? item.nameEn;
   const ingredients =
@@ -188,18 +186,15 @@ function MenuItemRow({ item }: { item: MenuItem }) {
     language === "en" ? item.descriptionEn : item.descriptionTh ?? item.descriptionEn;
 
   return (
-    <li className="flex flex-col gap-1 border-b border-gold/15 py-4">
+    <li className="flex flex-col border-b border-gold/15 py-2">
       <div className="flex items-baseline justify-between gap-4">
-        <p className="text-lg text-cream">{name}</p>
+        <p className="text-lg text-cream font-bold">{name}</p>
         {item.price != null && (
           <span className="shrink-0 text-base text-gold">฿{item.price}</span>
         )}
       </div>
-      {ingredients && <p className="text-sm text-muted">{ingredients}</p>}
-      {description && <p className="text-sm italic text-muted/80">{description}</p>}
-      {item.status === "soldOut" && (
-        <p className="text-xs uppercase tracking-widest text-muted/60">{copy.soldOut}</p>
-      )}
+      {ingredients && <p className="text-base text-muted font-medium">{ingredients}</p>}
+      {description && <p className="text-sm italic text-muted font-medium tracking-wide">{description}</p>}
     </li>
   );
 }
