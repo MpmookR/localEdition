@@ -149,8 +149,22 @@ function MenuSectionBlock({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-col gap-1 border-b border-gold/15 pb-2">
-        <h2 className="text-lg uppercase tracking-[0.2em] text-gold">◆ {title}</h2>
+      <div className="flex flex-col gap-2 border-b border-gold/15 pb-2">
+        {title && (
+          <div className="flex w-full items-center gap-3 text-gold sm:gap-4">
+            <span className="h-px flex-1 bg-gradient-to-r from-transparent to-gold/50" />
+            <span className="shrink-0 text-gold" aria-hidden>
+              ◆
+            </span>
+            <h2 className="max-w-[18rem] text-center text-lg font-bold uppercase tracking-wider text-gold sm:max-w-none">
+              {title}
+            </h2>
+            <span className="shrink-0 text-gold" aria-hidden>
+              ◆
+            </span>
+            <span className="h-px flex-1 bg-gradient-to-l from-transparent to-gold/50" />
+          </div>
+        )}
         {description && <p className="text-sm italic text-muted">{description}</p>}
       </div>
 

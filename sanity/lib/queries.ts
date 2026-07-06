@@ -7,7 +7,7 @@
 import { defineQuery } from "next-sanity";
 
 export const menuSectionsQuery = defineQuery(`
-  *[_type == "menuSection" && isVisible == true] | order(sortOrder asc){
+  *[_type == "menuSection" && isVisible == true && sortOrder > 0] | order(sortOrder asc){
     _id,
     titleEn,
     titleTh,
@@ -33,8 +33,22 @@ export const menuSectionsQuery = defineQuery(`
 `);
 
 export const specialOfMonthQuery = defineQuery(`
-  *[_type == "menuItem" && isFeatured == true && status != "hidden"] | order(sortOrder asc) [0]{
+  *[
+    _type == "menuItem" &&
+    status != "hidden" &&
+    section._ref in *[
+      _type == "menuSection" &&
+      isVisible == true &&
+      sortOrder == 0
+    ]._id
+  ] | order(sortOrder asc) [0]{
     _id,
+    section->{
+      titleEn,
+      titleTh,
+      descriptionEn,
+      descriptionTh
+    },
     nameEn,
     nameTh,
     descriptionEn,

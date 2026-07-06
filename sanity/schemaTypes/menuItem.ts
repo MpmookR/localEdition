@@ -119,14 +119,6 @@ export const menuItem = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'isFeatured',
-      title: 'Special of the Month',
-      type: 'boolean',
-      fieldset: 'menu',
-      description: 'Highlights this item at the top of the menu page. Only one item should be flagged at a time.',
-      initialValue: false,
-    }),
-    defineField({
       name: 'sortOrder',
       title: 'Sort Order',
       type: 'number',
@@ -186,7 +178,6 @@ export const menuItem = defineType({
 //   section: { _type: 'reference', _ref: 'abc123' }, // -> menuSection
 //   spirits: ['gin', 'liqueurAperitif', 'vermouthFortifiedWine'],
 //   status: 'available',
-//   isFeatured: false,
 //   sortOrder: 0,
 //   image: {
 //     _type: 'image',

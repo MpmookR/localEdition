@@ -23,9 +23,9 @@ export default async function Home() {
     client.fetch(siteSettingsQuery),
   ]);
 
-  // No "featured" flag exists in the schema yet — assumes the first section
-  // (lowest sortOrder) is the one to preview on the homepage.
-  const signatureItems = sections[1]?.items.slice(0, 3) ?? [];
+  // menuSectionsQuery excludes the reserved special section at sortOrder 0,
+  // so the first returned section is the first regular section to preview.
+  const signatureItems = sections[0]?.items.slice(0, 3) ?? [];
 
   return (
     <LanguageProvider>
