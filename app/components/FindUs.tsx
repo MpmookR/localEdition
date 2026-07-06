@@ -58,7 +58,7 @@ export function FindUs({ settings }: { settings: Settings | null }) {
   return (
     <section className="flex flex-col text-center gap-4 px-8 pt-2 pb-6 sm:px-24 sm:pt-4 sm:pb-8">
       <p className="text-xs uppercase tracking-[0.3em] text-muted">{copy.findUs}</p>
-      <h2 className="text-xl uppercase tracking-widest text-gold">
+      <h2 className="text-lg uppercase tracking-widest text-gold font-bold">
         {settings.barName} · Hatyai
       </h2>
       <p className="text-sm tracking-widest text-muted">{copy.location}</p>
@@ -156,7 +156,7 @@ export function FindUs({ settings }: { settings: Settings | null }) {
               href={link.url}
               target="_blank"
               rel="noreferrer"
-              className="rounded-lg border border-gold/30 px-6 py-3 text-xs uppercase tracking-widest text-cream transition-colors duration-400 hover:bg-gold hover:text-background "
+              className="rounded-lg border border-gold/30 px-6 py-3 text-xs uppercase tracking-widest text-cream font-semibold transition-colors duration-400 hover:bg-gold hover:text-background "
             >
               {link.label}
             </a>

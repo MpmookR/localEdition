@@ -41,7 +41,7 @@ export function Hero() {
 
         <Link
           href="/menu"
-          className="w-full max-w-xs rounded-lg border border-gold bg-background px-8 py-3 text-base font-bold text-gold tracking-widest transition-colors duration-600 hover:bg-gold hover:text-background sm:max-w-sm"
+          className="w-full max-w-xs rounded-lg border border-gold bg-background px-8 py-3 text-base font-bold text-gold tracking-widest transition-colors duration-400 hover:bg-gold hover:text-background sm:max-w-sm"
         >
           {copy.cta} →
         </Link>
@@ -49,5 +49,3 @@ export function Hero() {
     </section>
   );
 }
-
-//  className="w-full max-w-xs rounded-lg border border-gold bg-gold px-8 py-3 text-base font-bold text-background transition-colors duration-300 hover:bg-background hover:text-gold sm:max-w-sm"

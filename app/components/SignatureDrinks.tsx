@@ -60,7 +60,7 @@ export function SignatureDrinks({ items }: { items: MenuItem[] }) {
       <div className="flex flex-col items-center gap-4 py-8 sm:gap-8">
         <Link
           href="/menu"
-          className="w-full max-w-xs text-center rounded-lg bg-background px-8 py-3 text-base font-bold text-gold tracking-widest transition-colors duration-600 hover:bg-gold hover:text-background sm:max-w-sm"
+          className="w-full max-w-xs text-center rounded-lg bg-background px-8 py-3 text-base font-bold text-gold tracking-widest transition-colors duration-400 hover:bg-gold hover:text-background sm:max-w-sm"
         >
           {copy.cta} →
         </Link>

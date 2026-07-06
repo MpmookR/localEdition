@@ -50,6 +50,8 @@ export const specialOfMonthQuery = defineQuery(`
     },
     nameEn,
     nameTh,
+    ingredientsEn,
+    ingredientsTh,
     descriptionEn,
     descriptionTh,
     price,

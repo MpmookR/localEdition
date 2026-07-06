@@ -188,7 +188,7 @@ function MenuItemRow({ item }: { item: MenuItem }) {
   return (
     <li className="flex flex-col border-b border-gold/15 py-2">
       <div className="flex items-baseline justify-between gap-4">
-        <p className="text-lg text-cream font-bold">{name}</p>
+        <p className="text-lg text-gold font-bold">{name}</p>
         {item.price != null && (
           <span className="shrink-0 text-base text-gold">฿{item.price}</span>
         )}

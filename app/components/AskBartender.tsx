@@ -12,8 +12,8 @@ const COPY = {
     body: "Can't find what you're looking for? Just ask our bartender for recommendations!",
   },
   th: {
-    label: "เลือกไม่ถูกใช่ไหม?",
-    body: "หาสิ่งที่ต้องการไม่เจอ? ลองถามบาร์เทนเดอร์ของเราให้ช่วยแนะนำได้เลย!",
+    label: "ยังไม่เจอเครื่องดื่มที่ถูกใจ?",
+    body: "ลองถามบาร์เทนเดอร์ของเราให้ช่วยแนะนำได้เลย",
   },
 } as const;
 

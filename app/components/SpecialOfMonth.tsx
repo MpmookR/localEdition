@@ -10,9 +10,13 @@ type Item = {
   section: {
     titleEn: string | null;
     titleTh: string | null;
+    descriptionEn: string | null;
+    descriptionTh: string | null;
   } | null;
   nameEn: string | null;
   nameTh: string | null;
+  ingredientsEn: string | null;
+  ingredientsTh: string | null;
   descriptionEn: string | null;
   descriptionTh: string | null;
   price: number | null;
@@ -26,9 +30,19 @@ export function SpecialOfMonth({ item }: { item: Item | null }) {
 
   const sectionTitle =
     language === "en" ? item.section?.titleEn : item.section?.titleTh ?? item.section?.titleEn;
+  const sectionDescription =
+    language === "en"
+      ? item.section?.descriptionEn ?? item.section?.descriptionTh
+      : item.section?.descriptionTh ?? item.section?.descriptionEn;
   const name = language === "en" ? item.nameEn : item.nameTh ?? item.nameEn;
+  const ingredients =
+    language === "en"
+      ? item.ingredientsEn ?? item.ingredientsTh
+      : item.ingredientsTh ?? item.ingredientsEn;
   const description =
-    language === "en" ? item.descriptionEn : item.descriptionTh ?? item.descriptionEn;
+    language === "en"
+      ? item.descriptionEn ?? item.descriptionTh
+      : item.descriptionTh ?? item.descriptionEn;
   // Request 2x the desktop display size so retina screens don't upscale a blurry thumbnail.
   const imageUrl = item.image
     ? urlFor(item.image).width(640).height(480).fit("crop").auto("format").url()
@@ -54,33 +68,46 @@ export function SpecialOfMonth({ item }: { item: Item | null }) {
           )}
         </div>
 
-        <div className="flex flex-1 flex-col gap-1">
-          {sectionTitle && (
-            <div className="flex w-full items-center gap-2 pb-2 text-gold sm:gap-4 sm:pb-6">
-              <span className="h-px flex-1 bg-gradient-to-r from-transparent to-gold/50" />
-              <span className="shrink-0 text-gold" aria-hidden>
-                ◆
-              </span>
-              <p className="text-center text-lg font-bold uppercase tracking-wider text-gold">
-                {sectionTitle}
-              </p>
-              <span className="shrink-0 text-gold" aria-hidden>
-                ◆
-              </span>
-              <span className="h-px flex-1 bg-gradient-to-l from-transparent to-gold/50" />
-            </div>
-          )}
-
-          <div className="flex items-baseline justify-between gap-4">
-            <p className="text-lg text-cream font-semibold">{name}</p>
-            {item.price != null && (
-              <span className="shrink-0 text-base text-gold font-semibold">฿{item.price}</span>
+        <div className="flex flex-1 flex-col gap-3 sm:gap-4">
+          <div className="flex flex-col items-center gap-1 text-center">
+            {sectionTitle && (
+              <div className="flex w-full items-center gap-2 text-gold sm:gap-4">
+                <span className="h-px flex-1 bg-gradient-to-r from-transparent to-gold/50" />
+                <span className="shrink-0 text-gold" aria-hidden>
+                  ◆
+                </span>
+                <p className="text-center text-lg font-bold uppercase tracking-wider text-gold">
+                  {sectionTitle}
+                </p>
+                <span className="shrink-0 text-gold" aria-hidden>
+                  ◆
+                </span>
+                <span className="h-px flex-1 bg-gradient-to-l from-transparent to-gold/50" />
+              </div>
+            )}
+            {sectionDescription && (
+              <p className="text-base text-cream font-medium">{sectionDescription}</p>
             )}
           </div>
 
-          {description && (
-            <p className="text-base italic text-muted font-semibold">{description}</p>
-          )}
+          <div className="flex flex-col">
+            <div className="flex items-baseline justify-between">
+              <p className="text-xl font-bold text-gold">{name}</p>
+              {item.price != null && (
+                <span className="shrink-0 text-lg text-gold font-bold">฿{item.price}</span>
+              )}
+            </div>
+
+            {ingredients && (
+              <p className="text-base font-medium tracking-wide text-cream">{ingredients}</p>
+            )}
+
+            {description && (
+              <p className="text-base font-medium tracking-wide text-cream">
+                {description}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </section>
