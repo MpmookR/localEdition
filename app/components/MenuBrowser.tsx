@@ -194,7 +194,7 @@ function MenuItemRow({ item }: { item: MenuItem }) {
         )}
       </div>
       {ingredients && <p className="text-base text-muted font-medium">{ingredients}</p>}
-      {description && <p className="text-sm italic text-muted font-medium tracking-wide">{description}</p>}
+      {description && <p className="text-base text-muted font-medium tracking-wide">{description}</p>}
     </li>
   );
 }
