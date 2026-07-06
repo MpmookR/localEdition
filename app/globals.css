@@ -61,6 +61,30 @@ body {
   text-size-adjust: 100%;
 }
 
+html {
+  scrollbar-color: color-mix(in srgb, var(--gold) 70%, transparent) var(--background);
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 0.65rem;
+  height: 0.65rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--gold) 70%, transparent);
+  border: 0.18rem solid var(--background);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--gold);
+}
+
 :lang(th) body {
   font-family: var(--font-body-th), serif;
 }

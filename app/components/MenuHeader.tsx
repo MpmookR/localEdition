@@ -17,14 +17,14 @@ export function MenuHeader() {
   return (
     <header className="sticky top-0 z-20 flex items-center justify-between border-b border-gold/15 bg-background/95 backdrop-blur px-8 py-4 sm:gap-6 sm:px-24 sm:py-8">
       <Link
-        href="/"
-        className="text-xs uppercase tracking-wider text-cream/70 transition-colors hover:text-gold"
+        href="/#home-top"
+        className="text-base uppercase tracking-wider text-cream/70 transition-colors hover:text-gold"
       >
         ← {copy.back}
       </Link>
 
       <Link
-        href="/"
+        href="/#home-top"
         aria-label="Go to homepage"
         className="text-base uppercase tracking-widest text-gold font-bold transition-colors hover:text-cream focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
       >

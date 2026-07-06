@@ -29,7 +29,7 @@ export default async function Home() {
 
   return (
     <LanguageProvider>
-      <div className="relative flex flex-1 flex-col bg-background text-foreground">
+      <div id="home-top" className="relative flex flex-1 flex-col bg-background text-foreground">
         <div className="absolute right-8 top-4 z-10">
           <LanguageToggle />
         </div>
