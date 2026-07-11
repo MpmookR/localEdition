@@ -10,7 +10,6 @@ import {
   siteSettingsQuery,
 } from "@/sanity/lib/queries";
 
-import { LanguageProvider } from "@/app/i18n/language-context";
 import { MenuHeader } from "@/app/components/MenuHeader";
 import { SpecialOfMonth } from "@/app/components/SpecialOfMonth";
 import { MenuBrowser } from "@/app/components/MenuBrowser";
@@ -26,15 +25,13 @@ export default async function MenuPage() {
   ]);
 
   return (
-    <LanguageProvider>
-      <div className="relative flex flex-1 flex-col bg-background text-foreground">
-        <MenuHeader />
-        <SpecialOfMonth item={featured} />
-        <MenuBrowser sections={sections} />
-        <AskBartender />
-        <FindUs settings={settings} />
-        <Footer />
-      </div>
-    </LanguageProvider>
+    <div className="relative flex flex-1 flex-col bg-background text-foreground">
+      <MenuHeader />
+      <SpecialOfMonth item={featured} />
+      <MenuBrowser sections={sections} />
+      <AskBartender />
+      <FindUs settings={settings} />
+      <Footer />
+    </div>
   );
 }

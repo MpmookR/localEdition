@@ -1,9 +1,9 @@
 /**
  * Root layout — wraps every page in the app (including the menu page customers
- * land on after scanning the QR code). Currently default create-next-app
- * boilerplate: `lang="en"` is hardcoded and metadata is generic. Both need to
- * change once i18n (Thai/English) and Local Edition branding are added.
- * See ../doc.md for the full project overview.
+ * land on after scanning the QR code). Hosts the single LanguageProvider
+ * instance so the EN/TH selection persists across client-side navigation,
+ * plus a global scroll-to-top-on-navigate fix. See ../doc.md for the full
+ * project overview.
  */
 import type { Metadata } from "next";
 import {
@@ -14,6 +14,8 @@ import {
   Trirong,
 } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/app/i18n/language-context";
+import { ScrollToTop } from "@/app/components/ScrollToTop";
 
 // English display (h1).
 const cinzelDecorative = Cinzel_Decorative({
@@ -69,7 +71,10 @@ export default function RootLayout({
       lang="en"
       className={`${cinzelDecorative.variable} ${trirong.variable} ${cormorantGaramond.variable} ${notoSerifThai.variable} ${mali.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ScrollToTop />
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }

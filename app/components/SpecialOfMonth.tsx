@@ -55,14 +55,14 @@ export function SpecialOfMonth({ item }: { item: Item | null }) {
     >
       <div className="absolute inset-0 bg-background/65" aria-hidden />
 
-      <div className="relative flex items-center gap-4 sm:gap-5 lg:gap-6">
-        <div className="relative h-28 w-24 shrink-0 overflow-hidden rounded-lg border border-gold/20 sm:h-40 sm:w-52 md:h-48 md:w-64 lg:h-60 lg:w-80">
+      <div className="relative flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:gap-5 lg:gap-6">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-gold/20 sm:h-40 sm:w-52 sm:shrink-0 md:h-48 md:w-64 lg:h-60 lg:w-80">
           {imageUrl && (
             <Image
               src={imageUrl}
               alt={item.image?.alt ?? name ?? ""}
               fill
-              sizes="(min-width: 1024px) 320px, (min-width: 768px) 256px, (min-width: 640px) 208px, 96px"
+              sizes="(min-width: 1024px) 320px, (min-width: 768px) 256px, (min-width: 640px) 208px, calc(100vw - 4rem)"
               className="object-cover"
             />
           )}

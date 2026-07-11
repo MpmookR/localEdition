@@ -1,14 +1,12 @@
 /**
  * Site home page — what a customer sees first after scanning the bar's QR
  * code. Fetches menu sections + site settings from Sanity and renders the
- * bilingual homepage (EN/TH toggle via LanguageProvider). The full menu page
- * (linked from here) hasn't been built yet. See ../doc.md for the content
- * model and architecture.
+ * bilingual homepage (EN/TH toggle via the root layout's LanguageProvider).
+ * See ../doc.md for the content model and architecture.
  */
 import { client } from "@/sanity/lib/client";
 import { menuSectionsQuery, siteSettingsQuery } from "@/sanity/lib/queries";
 
-import { LanguageProvider } from "@/app/i18n/language-context";
 import { LanguageToggle } from "@/app/components/LanguageToggle";
 import { Hero } from "@/app/components/Hero";
 import { PhotoStrip } from "@/app/components/PhotoStrip";
@@ -28,23 +26,21 @@ export default async function Home() {
   const signatureItems = sections[0]?.items.slice(0, 3) ?? [];
 
   return (
-    <LanguageProvider>
-      <div id="home-top" className="relative flex flex-1 flex-col bg-background text-foreground">
-        <div className="absolute right-8 top-4 z-10">
-          <LanguageToggle />
-        </div>
-
-        <Hero />
-        <PhotoStrip />
-        <IntroQuote
-          introEn={settings?.introEn ?? null}
-          introTh={settings?.introTh ?? null}
-        />
-        <SignatureDrinks items={signatureItems} />
-        <FindUs settings={settings} />
-          
-        <Footer />
+    <div className="relative flex flex-1 flex-col bg-background text-foreground">
+      <div className="absolute right-8 top-4 z-10">
+        <LanguageToggle />
       </div>
-    </LanguageProvider>
+
+      <Hero />
+      <PhotoStrip />
+      <IntroQuote
+        introEn={settings?.introEn ?? null}
+        introTh={settings?.introTh ?? null}
+      />
+      <SignatureDrinks items={signatureItems} />
+      <FindUs settings={settings} />
+
+      <Footer />
+    </div>
   );
 }
