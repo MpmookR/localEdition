@@ -1,0 +1,628 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "titleEn",
+        "type": "string",
+        "title": "Title (English)"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "titleTh",
+        "type": "string",
+        "title": "Title (Thai)"
+      },
+      {
+        "options": {
+          "source": "titleEn"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 2,
+        "name": "descriptionEn",
+        "type": "text",
+        "title": "Description (English)"
+      },
+      {
+        "rows": 2,
+        "name": "descriptionTh",
+        "type": "text",
+        "title": "Description (Thai)"
+      },
+      {
+        "initialValue": 0,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ]
+          }
+        ],
+        "name": "sortOrder",
+        "type": "number"
+      },
+      {
+        "initialValue": true,
+        "name": "isVisible",
+        "type": "boolean",
+        "title": "Show on Menu"
+      }
+    ],
+    "name": "menuSection",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "nameEn",
+        "type": "string",
+        "title": "Name (English)",
+        "fieldset": "english"
+      },
+      {
+        "rows": 2,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "description": "Customer-facing ingredient list, e.g. Gin, Campari, sweet vermouth.",
+        "name": "ingredientsEn",
+        "type": "text",
+        "title": "Main Ingredients (English)",
+        "fieldset": "english"
+      },
+      {
+        "rows": 3,
+        "name": "descriptionEn",
+        "type": "text",
+        "title": "Description (English)",
+        "fieldset": "english"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "nameTh",
+        "type": "string",
+        "title": "Name (Thai)",
+        "fieldset": "thai"
+      },
+      {
+        "rows": 2,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "description": "Customer-facing ingredient list in Thai.",
+        "name": "ingredientsTh",
+        "type": "text",
+        "title": "Main Ingredients (Thai)",
+        "fieldset": "thai"
+      },
+      {
+        "rows": 3,
+        "name": "descriptionTh",
+        "type": "text",
+        "title": "Description (Thai)",
+        "fieldset": "thai"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ]
+          }
+        ],
+        "name": "price",
+        "type": "number",
+        "title": "Price (THB)",
+        "fieldset": "menu"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "menuSection"
+          }
+        ],
+        "name": "section",
+        "type": "reference",
+        "title": "Menu Section",
+        "fieldset": "menu"
+      },
+      {
+        "description": "Used for filtering. Select every spirit/base that applies.",
+        "of": [
+          {
+            "options": {
+              "list": [
+                {
+                  "title": "Gin",
+                  "value": "gin"
+                },
+                {
+                  "title": "Vodka",
+                  "value": "vodka"
+                },
+                {
+                  "title": "Rum",
+                  "value": "rum"
+                },
+                {
+                  "title": "Tequila / Mezcal",
+                  "value": "tequilaMezcal"
+                },
+                {
+                  "title": "Whiskey / Bourbon",
+                  "value": "whiskeyBourbon"
+                },
+                {
+                  "title": "Brandy / Cognac",
+                  "value": "brandyCognac"
+                },
+                {
+                  "title": "Liqueur / Aperitif",
+                  "value": "liqueurAperitif"
+                },
+                {
+                  "title": "Vermouth / Fortified wine",
+                  "value": "vermouthFortifiedWine"
+                },
+                {
+                  "title": "Wine / Sparkling wine",
+                  "value": "wineSparkling"
+                },
+                {
+                  "title": "Beer",
+                  "value": "beer"
+                },
+                {
+                  "title": "Sake / Soju",
+                  "value": "sakeSoju"
+                },
+                {
+                  "title": "Non-alcoholic",
+                  "value": "nonAlcoholic"
+                }
+              ]
+            },
+            "type": "string"
+          }
+        ],
+        "name": "spirits",
+        "type": "array",
+        "fieldset": "menu"
+      },
+      {
+        "initialValue": "available",
+        "options": {
+          "layout": "radio",
+          "list": [
+            {
+              "title": "Available",
+              "value": "available"
+            },
+            {
+              "title": "Temporarily hidden",
+              "value": "hidden"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "available",
+                  "hidden"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "status",
+        "type": "string",
+        "fieldset": "menu"
+      },
+      {
+        "initialValue": 0,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ]
+          }
+        ],
+        "name": "sortOrder",
+        "type": "number",
+        "fieldset": "menu"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "image",
+        "type": "image"
+      }
+    ],
+    "fieldsets": [
+      {
+        "name": "english"
+      },
+      {
+        "name": "thai"
+      },
+      {
+        "name": "menu",
+        "title": "Menu Details"
+      }
+    ],
+    "name": "menuItem",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "Local Edition",
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "barName",
+        "type": "string"
+      },
+      {
+        "initialValue": "Local Edition began with a simple love for cocktails and nights that move slowly. We built this bar as a safe, easygoing space to relax, speak softly over gentle music, watch old films on the wall, and enjoy a cocktail made with care. Pull up a stool. Tonight’s edition is yours to write.",
+        "rows": 3,
+        "name": "introEn",
+        "type": "text",
+        "title": "Intro Text (English)"
+      },
+      {
+        "initialValue": "Local Edition เริ่มต้นจากความชอบง่าย ๆ ในค็อกเทล และบรรยากาศของค่ำคืนที่ค่อย ๆ ผ่านไปอย่างไม่ต้องรีบ เราอยากให้บาร์นี้เป็นพื้นที่ที่ทุกคนมานั่งพักได้สบาย ๆ คุยกันเบา ๆ ฟังเพลงเพราะ ๆ ดูหนังเก่าบนผนัง แล้วจิบค็อกเทลสักแก้วที่เราตั้งใจทำให้เลือกที่นั่งที่ชอบ แล้วปล่อยให้คืนนี้เป็น Local Edition ของคุณ",
+        "rows": 3,
+        "name": "introTh",
+        "type": "text",
+        "title": "Intro Text (Thai)"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "20 Rajyindee Soi 6",
+            "name": "line1",
+            "type": "string"
+          },
+          {
+            "name": "line2",
+            "type": "string"
+          },
+          {
+            "initialValue": "Hat Yai",
+            "name": "city",
+            "type": "string"
+          },
+          {
+            "initialValue": "Songkhla",
+            "name": "province",
+            "type": "string"
+          },
+          {
+            "initialValue": "90110",
+            "name": "postal",
+            "type": "string",
+            "title": "Postal Code"
+          }
+        ],
+        "name": "addressEn",
+        "type": "object",
+        "title": "Address (English)"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "20 ถนนราษฎร์ยินดี ซอย 6",
+            "name": "line1",
+            "type": "string",
+            "title": "บรรทัดที่ 1"
+          },
+          {
+            "name": "line2",
+            "type": "string",
+            "title": "บรรทัดที่ 2"
+          },
+          {
+            "initialValue": "หาดใหญ่",
+            "name": "city",
+            "type": "string",
+            "title": "อำเภอ / เขต"
+          },
+          {
+            "initialValue": "สงขลา",
+            "name": "province",
+            "type": "string",
+            "title": "จังหวัด"
+          },
+          {
+            "initialValue": "90110",
+            "name": "postal",
+            "type": "string",
+            "title": "รหัสไปรษณีย์"
+          }
+        ],
+        "name": "addressTh",
+        "type": "object",
+        "title": "Address (Thai)"
+      },
+      {
+        "initialValue": "Wed - Sun",
+        "name": "openDaysEn",
+        "type": "string",
+        "title": "Open Days (English)"
+      },
+      {
+        "initialValue": "พุธ - อาทิตย์",
+        "name": "openDaysTh",
+        "type": "string",
+        "title": "Open Days (Thai)"
+      },
+      {
+        "initialValue": "7 PM - Midnight",
+        "name": "openTimeEn",
+        "type": "string",
+        "title": "Open Time (English)"
+      },
+      {
+        "initialValue": "19:00 - เที่ยงคืน",
+        "name": "openTimeTh",
+        "type": "string",
+        "title": "Open Time (Thai)"
+      },
+      {
+        "initialValue": "https://maps.app.goo.gl/ANDrSvrZsjYj23Ks6",
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "mapUrl",
+        "type": "url",
+        "title": "Google Maps URL"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "Paste the src URL from Google Maps → Share → Embed a map (starts with https://www.google.com/maps/embed?pb=...)",
+        "name": "mapEmbedUrl",
+        "type": "url",
+        "title": "Google Maps Embed URL"
+      },
+      {
+        "initialValue": "+66 88 613 4282",
+        "name": "phone",
+        "type": "string"
+      },
+      {
+        "name": "email",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "label",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "URL"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "socialLinks",
+        "type": "array"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document"
+  }
+]
