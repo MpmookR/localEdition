@@ -29,13 +29,14 @@ export function Hero() {
         alt=""
         fill
         priority
-        sizes="100vw"
+        quality={90}
+        sizes="(max-width: 1400px) 1400px, 100vw"
         className="object-cover object-[center_42%]"
         aria-hidden
       />
 
       <div className="relative z-10 mt-auto flex w-full flex-col items-center gap-4 sm:gap-8">
-        <p className="text-base uppercase tracking-[0.3em] text-cream/90">
+        <p className="text-base uppercase tracking-[0.1em] text-cream/90 sm:tracking-[0.3em]">
           {copy.tagline}
         </p>
 
