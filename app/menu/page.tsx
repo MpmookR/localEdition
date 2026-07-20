@@ -17,6 +17,10 @@ import { AskBartender } from "@/app/components/AskBartender";
 import { FindUs } from "@/app/components/FindUs";
 import { Footer } from "@/app/components/Footer";
 
+// See app/page.tsx for why this is required — otherwise Next statically
+// prerenders this page once at build and never refetches Sanity content.
+export const dynamic = "force-dynamic";
+
 export default async function MenuPage() {
   const [{ data: sections }, { data: featured }, { data: settings }] =
     await Promise.all([

@@ -15,6 +15,13 @@ import { SignatureDrinks } from "@/app/components/SignatureDrinks";
 import { FindUs } from "@/app/components/FindUs";
 import { Footer } from "@/app/components/Footer";
 
+// Without this, Next.js fully static-prerenders the page at build time and
+// serves that same HTML forever — sanityFetch's tag-based revalidation only
+// takes effect under the `cacheComponents` flag, which this project doesn't
+// enable. Forcing dynamic rendering guarantees every request reads current
+// Sanity content.
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const [{ data: sections }, { data: settings }] = await Promise.all([
     sanityFetch({ query: menuSectionsQuery }),
