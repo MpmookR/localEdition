@@ -16,6 +16,7 @@ import {
 import "./globals.css";
 import { LanguageProvider } from "@/app/i18n/language-context";
 import { ScrollToTop } from "@/app/components/ScrollToTop";
+import { SanityLive } from "@/sanity/lib/live";
 
 // English display (h1).
 const cinzelDecorative = Cinzel_Decorative({
@@ -74,6 +75,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <ScrollToTop />
         <LanguageProvider>{children}</LanguageProvider>
+        <SanityLive />
       </body>
     </html>
   );

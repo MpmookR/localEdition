@@ -95,8 +95,7 @@ export type MenuItem = {
     | "sakeSoju"
     | "nonAlcoholic"
   >;
-  status?: "available" | "hidden" | "soldOut";
-  isFeatured?: boolean;
+  status?: "available" | "hidden";
   sortOrder?: number;
   image?: {
     asset?: SanityImageAssetReference;
@@ -262,7 +261,7 @@ export type AllSanitySchemaTypes =
 
 // Source: sanity/lib/queries.ts
 // Variable: menuSectionsQuery
-// Query: *[_type == "menuSection" && isVisible == true] | order(sortOrder asc){    _id,    titleEn,    titleTh,    descriptionEn,    descriptionTh,    "items": *[      _type == "menuItem" &&      references(^._id) &&      status != "hidden"    ] | order(sortOrder asc){      _id,      nameEn,      nameTh,      ingredientsEn,      ingredientsTh,      descriptionEn,      descriptionTh,      price,      spirits,      status    }  }
+// Query: *[_type == "menuSection" && isVisible == true && sortOrder > 0] | order(sortOrder asc){    _id,    titleEn,    titleTh,    descriptionEn,    descriptionTh,    "items": *[      _type == "menuItem" &&      references(^._id) &&      status != "hidden"    ] | order(sortOrder asc){      _id,      nameEn,      nameTh,      ingredientsEn,      ingredientsTh,      descriptionEn,      descriptionTh,      price,      spirits    }  }
 export type MenuSectionsQueryResult = Array<{
   _id: string;
   titleEn: string | null;
@@ -292,17 +291,24 @@ export type MenuSectionsQueryResult = Array<{
       | "whiskeyBourbon"
       | "wineSparkling"
     > | null;
-    status: "available" | "hidden" | "soldOut" | null;
   }>;
 }>;
 
 // Source: sanity/lib/queries.ts
 // Variable: specialOfMonthQuery
-// Query: *[_type == "menuItem" && isFeatured == true && status != "hidden"] | order(sortOrder asc) [0]{    _id,    nameEn,    nameTh,    descriptionEn,    descriptionTh,    price,    image  }
+// Query: *[    _type == "menuItem" &&    status != "hidden" &&    section._ref in *[      _type == "menuSection" &&      isVisible == true &&      sortOrder == 0    ]._id  ] | order(sortOrder asc) [0]{    _id,    section->{      titleEn,      titleTh,      descriptionEn,      descriptionTh    },    nameEn,    nameTh,    ingredientsEn,    ingredientsTh,    descriptionEn,    descriptionTh,    price,    image  }
 export type SpecialOfMonthQueryResult = {
   _id: string;
+  section: {
+    titleEn: string | null;
+    titleTh: string | null;
+    descriptionEn: string | null;
+    descriptionTh: string | null;
+  } | null;
   nameEn: string | null;
   nameTh: string | null;
+  ingredientsEn: string | null;
+  ingredientsTh: string | null;
   descriptionEn: string | null;
   descriptionTh: string | null;
   price: number | null;
@@ -356,8 +362,8 @@ export type SiteSettingsQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "menuSection" && isVisible == true] | order(sortOrder asc){\n    _id,\n    titleEn,\n    titleTh,\n    descriptionEn,\n    descriptionTh,\n    "items": *[\n      _type == "menuItem" &&\n      references(^._id) &&\n      status != "hidden"\n    ] | order(sortOrder asc){\n      _id,\n      nameEn,\n      nameTh,\n      ingredientsEn,\n      ingredientsTh,\n      descriptionEn,\n      descriptionTh,\n      price,\n      spirits,\n      status\n    }\n  }\n': MenuSectionsQueryResult;
-    '\n  *[_type == "menuItem" && isFeatured == true && status != "hidden"] | order(sortOrder asc) [0]{\n    _id,\n    nameEn,\n    nameTh,\n    descriptionEn,\n    descriptionTh,\n    price,\n    image\n  }\n': SpecialOfMonthQueryResult;
+    '\n  *[_type == "menuSection" && isVisible == true && sortOrder > 0] | order(sortOrder asc){\n    _id,\n    titleEn,\n    titleTh,\n    descriptionEn,\n    descriptionTh,\n    "items": *[\n      _type == "menuItem" &&\n      references(^._id) &&\n      status != "hidden"\n    ] | order(sortOrder asc){\n      _id,\n      nameEn,\n      nameTh,\n      ingredientsEn,\n      ingredientsTh,\n      descriptionEn,\n      descriptionTh,\n      price,\n      spirits\n    }\n  }\n': MenuSectionsQueryResult;
+    '\n  *[\n    _type == "menuItem" &&\n    status != "hidden" &&\n    section._ref in *[\n      _type == "menuSection" &&\n      isVisible == true &&\n      sortOrder == 0\n    ]._id\n  ] | order(sortOrder asc) [0]{\n    _id,\n    section->{\n      titleEn,\n      titleTh,\n      descriptionEn,\n      descriptionTh\n    },\n    nameEn,\n    nameTh,\n    ingredientsEn,\n    ingredientsTh,\n    descriptionEn,\n    descriptionTh,\n    price,\n    image\n  }\n': SpecialOfMonthQueryResult;
     '\n  *[_type == "siteSettings"][0]{\n    barName,\n    introEn,\n    introTh,\n    addressEn{ line1, line2, city, province, postal },\n    addressTh{ line1, line2, city, province, postal },\n    openDaysEn,\n    openDaysTh,\n    openTimeEn,\n    openTimeTh,\n    mapUrl,\n    mapEmbedUrl,\n    phone,\n    email,\n    socialLinks\n  }\n': SiteSettingsQueryResult;
   }
 }

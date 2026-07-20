@@ -4,7 +4,7 @@
  * bilingual homepage (EN/TH toggle via the root layout's LanguageProvider).
  * See ../doc.md for the content model and architecture.
  */
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { menuSectionsQuery, siteSettingsQuery } from "@/sanity/lib/queries";
 
 import { LanguageToggle } from "@/app/components/LanguageToggle";
@@ -16,9 +16,9 @@ import { FindUs } from "@/app/components/FindUs";
 import { Footer } from "@/app/components/Footer";
 
 export default async function Home() {
-  const [sections, settings] = await Promise.all([
-    client.fetch(menuSectionsQuery),
-    client.fetch(siteSettingsQuery),
+  const [{ data: sections }, { data: settings }] = await Promise.all([
+    sanityFetch({ query: menuSectionsQuery }),
+    sanityFetch({ query: siteSettingsQuery }),
   ]);
 
   // menuSectionsQuery excludes the reserved special section at sortOrder 0,

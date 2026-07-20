@@ -3,7 +3,7 @@
  * (Hero, SignatureDrinks). Fetches every visible menu section + the
  * featured item from Sanity and renders the bilingual browse UI.
  */
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import {
   menuSectionsQuery,
   specialOfMonthQuery,
@@ -18,11 +18,12 @@ import { FindUs } from "@/app/components/FindUs";
 import { Footer } from "@/app/components/Footer";
 
 export default async function MenuPage() {
-  const [sections, featured, settings] = await Promise.all([
-    client.fetch(menuSectionsQuery),
-    client.fetch(specialOfMonthQuery),
-    client.fetch(siteSettingsQuery),
-  ]);
+  const [{ data: sections }, { data: featured }, { data: settings }] =
+    await Promise.all([
+      sanityFetch({ query: menuSectionsQuery }),
+      sanityFetch({ query: specialOfMonthQuery }),
+      sanityFetch({ query: siteSettingsQuery }),
+    ]);
 
   return (
     <div className="relative flex flex-1 flex-col bg-background text-foreground">
